@@ -1,0 +1,19 @@
+body{
+	padding: 20px;
+}
+.userlist{
+	display:none;
+	border-radius: 3px;
+	background: darkslategray;
+	color: white;
+	width:500px;
+	height: 500px;
+	padding: 20px;
+	font-size: 20px;
+	margin-top: 20px;
+}
+.alert{
+	display: none;
+	margin-top: 10px;
+	width: 320px;
+}

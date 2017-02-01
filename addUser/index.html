@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<input type="text">
+	<button id="add" type="button" class="btn btn-default">Add User</button>
+	<button id="get" type="button" class="btn btn-default">Get User</button>
+	<div class="alert alert-danger">
+  <strong>Danger!</strong> This user already exists!
+</div>
+	<div class="userlist">
+		test
+	</div>
+
+	<script>
+	var userdom = [];
+	var SERVER_PATH = "http://localhost:8000";
+		
+		$("#add").click(addUser);
+		$("#get").click(getUser);
+		$(document).ready(function(){
+			displayUsersOnInitalLoad();
+
+		});
+		
+
+
+
+		function displayUsersOnInitalLoad(){
+			$.get(SERVER_PATH + "/getUser", function(data){
+				userdom = data;
+			});
+		}
+
+		function addUser(){
+			if(checkIfUserExists($("input").val())){
+
+			addUserToDom($("input").val());
+			addUserToServer($("input").val());
+			}
+			else{
+				$(".alert-danger").slideDown();
+			}
+		}
+		function checkIfUserExists(username){
+			console.log(username);
+			if($.inArray(username, userdom) > -1){
+				console.log("user in array...");
+
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		
+		function addUserToDom(username){
+			for(var i = 0; i<userdom.length: i++){
+				$(".userlist").html($(".userlist").html()+ userdom[i])
+			}
+		}
+		function addUserToServer(username){
+			$.post(SERVER_PATH + "/addUser", {"username": username}, function(data){
+				console.log(data);
+			});
+		}
+		function getUser(){
+			$.get(SERVER_PATH + "/getUser", function(data){
+				userdom = data;
+			});
+		}
+	</script>
+</body>
+</html>
